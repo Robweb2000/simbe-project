@@ -6,7 +6,7 @@ This project implements an IoT datastore API in node.js.  The prompted constrain
 -   Simple API to query this data : in SQL, how to get the value for all devices at any point in time
 
 ## Process
-The project is centered around the Swagger API definition in swagger.yaml.  The base code originates from this, using swagger-node-codegen.  This provided function signatures, that I then implemented using the Express framework.
+The project is centered around the Swagger API definition in swagger.yaml (explore the [interactive UI](https://robweb2000.github.io/simbe-project/)).  The base code originates from this, using swagger-node-codegen.  This provided function signatures, that I then implemented using the Express framework.
 
 I added *knex* to provide a convenient Query Builder for postgresql.  It allows one to write code that's very analogous to the actual SQL queries, without having to resort to direct string manipulation (which is also prone to security risks like SQL injection).
 
