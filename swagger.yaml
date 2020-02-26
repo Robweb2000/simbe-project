@@ -1,0 +1,89 @@
+swagger: "2.0"
+info:
+  description: "This REST API Implements a coding challenge for Simbe Robotics.  It provides access to simple timeseries data from a variety of IoT endpoints."
+  version: "1.0.0"
+  title: "Simbe Robotics Timeseries API"
+  contact:
+    email: "john.robert.eaton@gmail.com"
+host: "TODO"
+basePath: "/v1"
+schemes:
+- "https"
+- "http"
+paths:
+  /sample:
+    post:
+      summary: "Submit a new timeseries sample from an IoT endpoint."
+      operationId: "putIoTSample"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sample object to submit"
+        required: true
+        schema:
+          $ref: "#/definitions/IoTSample"
+      responses:
+        201:
+          description: "IoT sample accepted"
+        405:
+          description: "Invalid input"
+      security:
+      - endpoint_auth: []
+  /sample/{ts}:
+    get:
+      summary: "Get historical fleet values at given time"
+      operationId: "getFleetSample"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: "ts"
+        type: integer
+        format: int32
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/FleetSample"
+        400:
+          description: "timestamp is out of range of existing data"
+      security:
+      - api_key: []
+securityDefinitions:
+  endpoint_auth:
+    type: "basic"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  IoTSample:
+    type: "object"
+    properties:
+      ts:
+        type: "integer"
+        format: "int32"
+        description: "Unix epoch timestamp (seconds)"
+      endpoint_id:
+        type: "integer"
+        format: "int32"
+        description: "unique identifier for this IoT endpoint"
+      value:
+        type: "number"
+        format: "float"
+        description: "IoT endpoint's current sensor value."
+  FleetSample:
+    type: "object"
+    properties:
+      ts:
+        type: "integer"
+        format: "int32"
+    additionalProperties:
+      description: "additional fields are maps of string endpoint_ids to their respective float values"
+      type: "number"
+      format: "float"
