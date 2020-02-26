@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const config = require('../lib/config');
 const logger = require('../lib/logger');
+const knex = require('../../db/knex.js');
 
 const log = logger(config.logger);
 const app = express();

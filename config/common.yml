@@ -16,6 +16,12 @@ defaults: &defaults
 development:
   <<: *defaults
 
+  iot_auth:
+    user: robbie
+    pass: basic
+
+  api_key: qwertyuiop
+
 production:
   <<: *defaults
 
